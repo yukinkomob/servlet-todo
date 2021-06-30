@@ -83,18 +83,46 @@ public class TaskServlet extends HttpServlet {
 			boolean isDelete = (request.getParameter("delete") != null);
 			
 			if (isEdit || isDelete) {
-				String id = request.getParameter("index");
-				System.out.println(id);
+				String idStr = request.getParameter("index");
+				if (idStr == null) {
+					return;
+				}
+				System.out.println(idStr);
 				List<TaskItem> list = (List<TaskItem>) session.getAttribute("list");
 				if (list.size() <= 0) {
+					RequestDispatcher rd = request.getRequestDispatcher("/result.jsp");
+					rd.forward(request, response);
 					return;
 				}				
 				if (isEdit) {
+					int idNum = Integer.parseInt(idStr);
+					if (idNum <= 0) {
+						throw new IllegalStateException();
+					}
+					
+					Integer id = (Integer) session.getAttribute("id");
+					if (id == null) {
+						id = 0;
+					}
+					
+					String monthStr = request.getParameter("month");
+					int month = monthStr != null ? Integer.parseInt(monthStr) : -1; 
+					String dayStr = request.getParameter("day");
+					int day = dayStr != null ? Integer.parseInt(dayStr) : -1;
+					
+					String taskContent = request.getParameter("task_content");
+					String assignee = request.getParameter("assignee");
+					
+					TaskItem item = list.get(idNum - 1);
+					item.setTaskContent(taskContent);
+					item.setMonth(month);
+					item.setDay(day);
+					item.setAssignee(assignee);
 					
 				} else if (isDelete) {
-					int idNum = Integer.parseInt(id);
+					int idNum = Integer.parseInt(idStr);
 					if (idNum <= 0) {
-						return;
+						throw new IllegalStateException();
 					}
 					list.remove(idNum - 1);
 					session.setAttribute("id", idNum - 1);

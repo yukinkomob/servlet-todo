@@ -69,12 +69,29 @@
 
 					<form action="task" method="post">
 
-						<div class="text-center space-x-8">
-							<input
-								class="cursor-pointer py-2 w-56 rounded-sm bg-blue-400 hover:bg-blue-300 text-white font-bold"
-								type="submit" name="edit" value="編　集"> <input
-								class="cursor-pointer py-2 w-56 rounded-sm bg-red-400 hover:bg-red-300 text-white font-bold"
-								type="submit" name="delete" value="削　除">
+						<div class="text-center">
+							<div class="p-4 border">
+								<h1 class="p-4 text-2xl">タスク情報の更新</h1>
+								<label class="inline-block">タスクの内容<br /> <textarea
+										name="task_content" class="border p-4 m-2" cols="50" rows="2"></textarea></label><br />
+								<label class="inline-block p-2">期日: <input
+									class="border px-2 py-1 w-16 ml-4 mr-2" type="number"
+									name="month" max="12" min="1" />月 <input
+									class="border px-2 py-1 w-16 mx-2" type="number" name="day"
+									max="31" min="1" />日
+								</label><br /> <label class="inline-block p-2 mb-4">担当者: <input
+									class="border px-2 py-1 ml-4" type="text" name="assignee" />
+								</label><br /> <input
+									class="cursor-pointer py-2 w-56 rounded-sm bg-blue-400 hover:bg-blue-300 text-white font-bold"
+									type="submit" name="edit" value="編　集">
+							</div>
+							<br />
+							<div class="p-4 border">
+								<h1 class="p-4 text-2xl">タスク情報の削除</h1>
+								<input
+									class="cursor-pointer py-2 w-56 rounded-sm bg-red-400 hover:bg-red-300 text-white font-bold"
+									type="submit" name="delete" value="削　除">
+							</div>
 						</div>
 						<table class="table-auto mt-4">
 							<tr class="whitespace-nowrap border">
@@ -89,7 +106,8 @@
 
 								<tr class="border">
 									<td class="p-2 text-center align-middle"><input
-										class="scale-150" type="radio" name="index" value="${ task.id }"></td>
+										class="scale-150" type="radio" name="index"
+										value="${ task.id }"></td>
 									<td class="p-2"><c:out value="${ task.assignee }" /></td>
 									<td class="p-2">2021/<c:out value="${ task.month }" />/<c:out
 											value="${ task.day }" /></td>
