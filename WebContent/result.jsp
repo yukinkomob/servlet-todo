@@ -19,7 +19,7 @@
 		class="p-4 bg-blue-400 text-center font-mono text-3xl text-white font-bold shadow-md">
 		<p>ToDo App</p>
 	</header>
-	<main class="m-3 border-gray-200 border shadow-md">
+	<main class="m-3 border-gray-200 border shadow-md min-h-screen">
 		<div class="p-4">
 			<h1 class="text-blue-500 text-2xl font-bold">◆ メインメニュー</h1>
 		</div>
@@ -67,13 +67,14 @@
 
 				<c:otherwise>
 
-					<form>
+					<form action="task" method="post">
+
 						<div class="text-center space-x-8">
 							<input
 								class="cursor-pointer py-2 w-56 rounded-sm bg-blue-400 hover:bg-blue-300 text-white font-bold"
-								type="button" value="編　集"> <input
+								type="submit" name="edit" value="編　集"> <input
 								class="cursor-pointer py-2 w-56 rounded-sm bg-red-400 hover:bg-red-300 text-white font-bold"
-								type="button" value="削　除">
+								type="submit" name="delete" value="削　除">
 						</div>
 						<table class="table-auto mt-4">
 							<tr class="whitespace-nowrap border">
@@ -88,9 +89,10 @@
 
 								<tr class="border">
 									<td class="p-2 text-center align-middle"><input
-										class="scale-150" type="radio"></td>
+										class="scale-150" type="radio" name="index" value="${ task.id }"></td>
 									<td class="p-2"><c:out value="${ task.assignee }" /></td>
-									<td class="p-2">2021/<c:out value="${ task.month }" />/<c:out value="${ task.day }" /></td>
+									<td class="p-2">2021/<c:out value="${ task.month }" />/<c:out
+											value="${ task.day }" /></td>
 									<td class="p-2"><c:out value="${ task.taskContent }" /></td>
 								</tr>
 
@@ -105,7 +107,7 @@
 		</div>
 	</main>
 	<footer
-		class="absolute mt-8 w-full bottom-0 p-2 bg-blue-800 text-center font-mono text-sm text-white">
+		class="mt-8 w-full bottom-0 p-2 bg-blue-800 text-center font-mono text-sm text-white">
 		<p>JPIN Exercise at 2021/07</p>
 	</footer>
 

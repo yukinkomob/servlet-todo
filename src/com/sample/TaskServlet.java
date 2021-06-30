@@ -79,6 +79,32 @@ public class TaskServlet extends HttpServlet {
 			rd.forward(request, response);
 
 		} else {
+			boolean isEdit = (request.getParameter("edit") != null);
+			boolean isDelete = (request.getParameter("delete") != null);
+			
+			if (isEdit || isDelete) {
+				String id = request.getParameter("index");
+				System.out.println(id);
+				List<TaskItem> list = (List<TaskItem>) session.getAttribute("list");
+				if (list.size() <= 0) {
+					return;
+				}				
+				if (isEdit) {
+					
+				} else if (isDelete) {
+					int idNum = Integer.parseInt(id);
+					if (idNum <= 0) {
+						return;
+					}
+					list.remove(idNum - 1);
+					session.setAttribute("id", idNum - 1);
+					session.setAttribute("list", list);
+				}
+				
+				RequestDispatcher rd = request.getRequestDispatcher("/result.jsp");
+				rd.forward(request, response);
+			}
+			
 			// ƒRƒƒ“ƒg‚Ìˆ—
 			
 //			List<MeetupMessage> list = (List<MeetupMessage>) session.getAttribute("list");

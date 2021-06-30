@@ -15,6 +15,10 @@ public class TaskItem {
 		this.day = day;
 		this.assignee = assignee;
 	}
+	
+	public int getId() {
+		return id;
+	}
 
 	public String getTaskContent() {
 		return taskContent;
