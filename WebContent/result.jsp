@@ -10,7 +10,8 @@
 <title>Todo管理</title>
 <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css"
 	rel="stylesheet">
-<script src="https://kit.fontawesome.com/98c77f9d64.js" crossorigin="anonymous"></script>
+<script src="https://kit.fontawesome.com/98c77f9d64.js"
+	crossorigin="anonymous"></script>
 </head>
 <body>
 	<%
@@ -54,9 +55,9 @@
 				</div>
 			</div>
 		</div>
-		
+
 		<hr class="my-16">
-		
+
 		<div class="p-4">
 
 			<c:choose>
@@ -69,33 +70,108 @@
 					<form action="task" method="post">
 						<div class="flex justify-around">
 							<div>
+								<%@ page import="com.sample.Util"%>
+								<%@ page import="java.util.List"%>
+								<%@ page import="com.sample.TaskItem"%>
+								<%
+									List<TaskItem> list = (List<TaskItem>) session.getAttribute("list");
+								boolean hasComplete = com.sample.Util.hasCompleteTask(list);
+								boolean hasIncomplete = Util.hasIncompleteTask(list);
+								session.setAttribute("hasComplete", hasComplete);
+								session.setAttribute("hasIncomplete", hasIncomplete);
+								%>
+
 								<h2 class="text-2xl font-bold mt-8 mb-2">未完了のタスク</h2>
 
-								<table class="table-auto mt-4">
-									<tr class="whitespace-nowrap border">
-										<th class="p-2">編集／削除</th>
-										<th class="p-2">担当者</th>
-										<th class="p-2">期日</th>
-										<th class="p-2">タスクの内容</th>
-										<th class="p-2">完了</th>
-									</tr>
+								<c:choose>
+									<c:when test="${ hasIncomplete }">
 
-									<c:forEach items="${ sessionScope.list }" var="task"
-										varStatus="status">
+										<table class="table-auto mt-4">
+											<tr class="whitespace-nowrap border">
+												<th class="p-2">編集／削除</th>
+												<th class="p-2">担当者</th>
+												<th class="p-2">期日</th>
+												<th class="p-2">タスクの内容</th>
+												<th class="p-2">完了へ</th>
+											</tr>
 
-										<tr class="border">
-											<td class="p-2 text-center align-middle"><input
-												class="scale-150" type="radio" name="index"
-												value="${ task.id }"></td>
-											<td class="p-2"><c:out value="${ task.assignee }" /></td>
-											<td class="p-2">2021/<c:out value="${ task.month }" />/<c:out
-													value="${ task.day }" /></td>
-											<td class="p-2"><c:out value="${ task.taskContent }" /></td>
-											<td class="p-2 text-center"><button class="rounded-sm inline-block p-2" name="completeIndex" value="${ task.id }"><i class="fas fa-clipboard-check text-2xl text-blue-500"></i></button></td>
-										</tr>
-									</c:forEach>
+											<c:forEach items="${ sessionScope.list }" var="task"
+												varStatus="status">
 
-								</table>
+												<c:if test="${ !task.isComplete }">
+
+													<tr class="border">
+														<td class="p-2 text-center align-middle"><input
+															class="scale-150" type="radio" name="index"
+															value="${ task.id }"></td>
+														<td class="p-2"><c:out value="${ task.assignee }" /></td>
+														<td class="p-2">2021/<c:out value="${ task.month }" />/<c:out
+																value="${ task.day }" /></td>
+														<td class="p-2"><c:out value="${ task.taskContent }" /></td>
+														<td class="p-2 text-center"><button
+																class="rounded-sm inline-block p-2" name="complete"
+																value="${ task.id }">
+																<i class="fas fa-clipboard-check text-2xl text-blue-500"></i>
+															</button></td>
+													</tr>
+
+												</c:if>
+
+											</c:forEach>
+
+										</table>
+
+									</c:when>
+									<c:otherwise>
+										<p>タスクはありません</p>
+									</c:otherwise>
+								</c:choose>
+
+								<h2 class="text-2xl font-bold mt-8 mb-2">完了済みのタスク</h2>
+
+								<c:choose>
+									<c:when test="${ hasComplete }">
+
+										<table class="table-auto mt-4">
+											<tr class="whitespace-nowrap border">
+												<th class="p-2">編集／削除</th>
+												<th class="p-2">担当者</th>
+												<th class="p-2">期日</th>
+												<th class="p-2">タスクの内容</th>
+												<th class="p-2">未完了へ</th>
+											</tr>
+
+											<c:forEach items="${ sessionScope.list }" var="task"
+												varStatus="status">
+
+												<c:if test="${ task.isComplete }">
+
+													<tr class="border">
+														<td class="p-2 text-center align-middle"><input
+															class="scale-150" type="radio" name="index"
+															value="${ task.id }"></td>
+														<td class="p-2"><c:out value="${ task.assignee }" /></td>
+														<td class="p-2">2021/<c:out value="${ task.month }" />/<c:out
+																value="${ task.day }" /></td>
+														<td class="p-2"><c:out value="${ task.taskContent }" /></td>
+														<td class="p-2 text-center"><button
+																class="rounded-sm inline-block p-2" name="incomplete"
+																value="${ task.id }">
+																<i class="fas fa-clipboard text-2xl text-gray-500"></i>
+															</button></td>
+													</tr>
+
+												</c:if>
+
+											</c:forEach>
+										</table>
+
+									</c:when>
+									<c:otherwise>
+										<p>タスクはありません</p>
+									</c:otherwise>
+								</c:choose>
+
 							</div>
 
 							<div class="text-center">

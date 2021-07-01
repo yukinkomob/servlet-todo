@@ -6,6 +6,7 @@ public class TaskItem {
 	int month;
 	int day;
 	String assignee;
+	boolean isComplete;
 
 	public TaskItem(int id, String taskContent, int month, int day, String assignee) {
 		super();
@@ -14,6 +15,7 @@ public class TaskItem {
 		this.month = month;
 		this.day = day;
 		this.assignee = assignee;
+		this.isComplete = false;
 	}
 
 	public int getId() {
@@ -54,6 +56,14 @@ public class TaskItem {
 
 	public void setAssignee(String assignee) {
 		this.assignee = assignee;
+	}
+
+	public boolean getIsComplete() {
+		return isComplete;
+	}
+
+	public void setComplete(boolean isComplete) {
+		this.isComplete = isComplete;
 	}
 
 }
