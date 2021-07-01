@@ -10,6 +10,7 @@
 <title>Todo管理</title>
 <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css"
 	rel="stylesheet">
+<script src="https://kit.fontawesome.com/98c77f9d64.js" crossorigin="anonymous"></script>
 </head>
 <body>
 	<%
@@ -72,10 +73,11 @@
 
 								<table class="table-auto mt-4">
 									<tr class="whitespace-nowrap border">
-										<th class="p-2">操作</th>
+										<th class="p-2">編集／削除</th>
 										<th class="p-2">担当者</th>
 										<th class="p-2">期日</th>
 										<th class="p-2">タスクの内容</th>
+										<th class="p-2">完了</th>
 									</tr>
 
 									<c:forEach items="${ sessionScope.list }" var="task"
@@ -89,8 +91,8 @@
 											<td class="p-2">2021/<c:out value="${ task.month }" />/<c:out
 													value="${ task.day }" /></td>
 											<td class="p-2"><c:out value="${ task.taskContent }" /></td>
+											<td class="p-2 text-center"><button class="rounded-sm inline-block p-2" name="completeIndex" value="${ task.id }"><i class="fas fa-clipboard-check text-2xl text-blue-500"></i></button></td>
 										</tr>
-
 									</c:forEach>
 
 								</table>
