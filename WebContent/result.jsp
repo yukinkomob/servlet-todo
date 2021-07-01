@@ -111,7 +111,7 @@
 														<td class="p-2 text-center"><button
 																class="rounded-sm inline-block p-2" name="complete"
 																value="${ task.id }">
-																<i class="fas fa-clipboard-check text-2xl text-blue-500"></i>
+																<i class="fas fa-clipboard-check text-2xl text-blue-500 hover:text-blue-400"></i>
 															</button></td>
 													</tr>
 
@@ -157,7 +157,7 @@
 														<td class="p-2 text-center"><button
 																class="rounded-sm inline-block p-2" name="incomplete"
 																value="${ task.id }">
-																<i class="fas fa-clipboard text-2xl text-gray-500"></i>
+																<i class="fas fa-clipboard text-2xl text-gray-500 hover:text-gray-400"></i>
 															</button></td>
 													</tr>
 
